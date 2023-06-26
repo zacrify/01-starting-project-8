@@ -12,6 +12,11 @@ const SimpleInput = (props) => {
     }
     
   };
+
+  const onClickHandler = (event) => {
+    event.preventDefault();
+  console.log('Submit');
+  };
   return (
     <form>
       <div className='form-control'>
@@ -20,7 +25,7 @@ const SimpleInput = (props) => {
         {!isValid && <p>Name must not be empty.</p>}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!isValid} onClick={onClickHandler}>Submit</button>
       </div>
     </form>
   );
