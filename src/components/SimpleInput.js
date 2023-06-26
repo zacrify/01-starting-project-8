@@ -1,35 +1,40 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
+import useValidation from "../hooks/use-Validation";
 
 const SimpleInput = (props) => {
-  const [enteredName, setEnteredName] = useState("");
-  const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+  // const [enteredName, setEnteredName] = useState("");
+  // const [enteredNameTouched, setEnteredNameTouched] = useState(false);
 
-  const enteredNameIsValid = enteredName.trim() !== "";
-  const nameInputIsInValid = !enteredNameIsValid && enteredNameTouched;
+  // const enteredNameIsValid = enteredName.trim() !== "";
+  // const nameInputIsInValid = !enteredNameIsValid && enteredNameTouched;
 
 
-  const nameInputHandler = (event) => {
-    setEnteredName(event.target.value);
-  };
+  // const nameInputHandler = (event) => {
+  //   setEnteredName(event.target.value);
+  // };
 
-  const formSubmitHandler = (event) => {
-    event.preventDefault();
-    if(!enteredNameIsValid){
-      return;
-    }
-    setEnteredNameTouched(true);
-    console.log(enteredName);
-    setEnteredName("");
-    setEnteredNameTouched(false);
-  };
+  // const formSubmitHandler = (event) => {
+  //   event.preventDefault();
+  //   if(!enteredNameIsValid){
+  //     return;
+  //   }
+  //   setEnteredNameTouched(true);
+  //   console.log(enteredName);
+  //   setEnteredName("");
+  //   setEnteredNameTouched(false);
+  // };
 
-  const onBlurHandler = () => {
-    setEnteredNameTouched(true);
-  };
+  // const onBlurHandler = () => {
+  //   setEnteredNameTouched(true);
+  // };
   
-  const formControlClass = `${!nameInputIsInValid ? "form-control" : "form-control invalid"}`;
+  // const formControlClass = `${!nameInputIsInValid ? "form-control" : "form-control invalid"}`;
+
+  const {enteredName, enteredNameIsValid, nameInputIsInValid, nameInputHandler, formSubmitHandler, onBlurHandler, formControlClass} = useValidation();
+
+  props.onValue(enteredName);
   return (
-    <form onSubmit={formSubmitHandler}>
+
       <div className={formControlClass}>
         <label htmlFor="name">Your Name</label>
         <input
@@ -41,10 +46,6 @@ const SimpleInput = (props) => {
         />
         {nameInputIsInValid && <p>Name must not be empty</p>}
       </div>
-      <div className="form-actions">
-        <button type="submit">Submit</button>
-      </div>
-    </form>
   );
 };
 
